@@ -1,6 +1,33 @@
-export const sum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
-  }
-  return a + b;
-};
+import { Option } from 'commander';
+import { CommandCenter } from './Command';
+import { parse } from './lib/parser';
+const command = CommandCenter.createCommandCenter();
+command
+  .addOption(
+    new Option('-f, --file <filepath>', 'path to .svg file').default(
+      './',
+      'current directory'
+    )
+  )
+  .addOption(
+    new Option('-o, --output <filepath>', 'path to output file').default(
+      './',
+      'current directory'
+    )
+  )
+
+  .addOption(
+    new Option('-d, --drink <jsx,tsx>', 'drink size').choices(['jsx', 'tsx'])
+  )
+  .addOption(
+    new Option('-t, --thread <number>', 'number of thread').default(1, 'one')
+  );
+
+command.action(() => {
+  const parsed = parse(`
+	<svg viewBox='0 0 100 100' asdzx>
+		<!-- stuff goes here... -->
+	</svg>
+`);
+});
+command.parse(); // controller.addCommand({})

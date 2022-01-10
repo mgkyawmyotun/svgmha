@@ -34,8 +34,7 @@
   "name": "svgmha",
   "author": "kyawmyotun",
   "module": "dist/svgmha.esm.js",
-  "size-limit": [
-    {
+  "size-limit": [{
       "path": "dist/svgmha.cjs.production.min.js",
       "limit": "10 KB"
     },
@@ -51,5 +50,8 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "commander": "^8.3.0"
   }
 }
