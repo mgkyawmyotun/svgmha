@@ -33,7 +33,7 @@ function repeat(str: string, i: number) {
   return result;
 }
 
-export function parse(source: string) {
+export function parse(source: string): any {
   let header = '';
   let stack: any[] = [];
 
@@ -55,7 +55,7 @@ export function parse(source: string) {
       beforeLine.length
     )}^`;
 
-    throw new Error(`${message} (${line}:${column})`);
+    throw new Error(`${message} (${line}:${column} \n\n${snippet}`);
   }
 
   function metadata() {
