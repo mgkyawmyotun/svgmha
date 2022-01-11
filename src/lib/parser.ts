@@ -2,6 +2,7 @@ const validNameCharacters = /[a-zA-Z0-9:_-]/;
 const whitespace = /[\s\t\r\n]/;
 const quotemark = /['"]/;
 
+// get column number and postion of character
 function locate(str: string, index: number) {
   const line = index;
   const breakString = str.split('\n');
