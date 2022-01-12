@@ -21,5 +21,5 @@ export async function optimizeSvg(svgString: string) {
       },
     ],
   });
-  return (result as any).data;
+  return (result as any).data as string;
 }

@@ -55,6 +55,7 @@
   "dependencies": {
     "@types/svgo": "^2.6.1",
     "commander": "^8.3.0",
+    "css-to-object": "^1.1.0",
     "svgo": "^2.8.0"
   }
 }
