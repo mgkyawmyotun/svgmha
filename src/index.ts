@@ -5,7 +5,7 @@ import { parse } from './lib/parser';
 import { stringify } from './lib/stringfy';
 import { format } from './lib/stubs';
 import { transform } from './lib/transformer';
-import { getSourceFromFile } from './utils';
+import { getSourceFromFile, writeDataToFile } from './utils';
 const command = CommandCenter.createCommandCenter();
 command
   .addOption(
@@ -22,7 +22,10 @@ command
   )
 
   .addOption(
-    new Option('-d, --drink <jsx,tsx>', 'drink size').choices(['jsx', 'tsx'])
+    new Option('-e, --extension <jsx,tsx>', 'drink size').choices([
+      'jsx',
+      'tsx',
+    ])
   )
   .addOption(
     new Option('-t, --thread <number>', 'number of thread').default(1, 'one')
@@ -35,7 +38,7 @@ command.action(async () => {
   // 	</svg>
   // `);
 
-  const { file } = command.opts() as any;
+  const { file, output } = command.opts() as any;
   const data = getSourceFromFile(file);
 
   const optimizedSvg = await optimizeSvg(data);
@@ -44,6 +47,7 @@ command.action(async () => {
   const transformed = transform(parsedSvg.children[0]);
   const stringed = stringify(transformed);
   const formated = format(stringed, 'function', 'tsx');
+  writeDataToFile(output, formated as string);
 
   console.log(formated);
 });

@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 export function getSourceFromFile(path: string) {
   return getDataFromFile(path);
 }
@@ -6,7 +6,9 @@ export function getSourceFromFile(path: string) {
 function getDataFromFile(path: string) {
   return readFileSync(path).toString();
 }
-
+export function writeDataToFile(path: string, data: string) {
+  return writeFileSync(path, data);
+}
 export function isString(value: any) {
   const type = typeof value;
   return (
