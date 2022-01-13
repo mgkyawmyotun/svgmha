@@ -2,6 +2,8 @@ import { Option } from 'commander';
 import { CommandCenter } from './Command';
 import { optimizeSvg } from './lib/optimizer';
 import { parse } from './lib/parser';
+import { stringify } from './lib/stringfy';
+import { format } from './lib/stubs';
 import { transform } from './lib/transformer';
 import { getSourceFromFile } from './utils';
 const command = CommandCenter.createCommandCenter();
@@ -40,6 +42,9 @@ command.action(async () => {
   const parsedSvg = parse(optimizedSvg);
 
   const transformed = transform(parsedSvg.children[0]);
-  console.log(transformed.children);
+  const stringed = stringify(transformed);
+  const formated = format(stringed, 'function', 'tsx');
+
+  console.log(formated);
 });
 command.parse(); // controller.addCommand({})

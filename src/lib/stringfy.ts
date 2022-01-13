@@ -1,13 +1,10 @@
-const isPlainObject = require('lodash.isplainobject');
-const isString = require('lodash.isstring');
+import { isPlainObject, isString } from '../utils';
 
-function stringifyStyle(style = {}) {
+function stringifyStyle(style: any) {
   const proprietyNames = Object.keys(style);
-
   return proprietyNames.reduce((accumulator, proprietyName) => {
     const propriety = style[proprietyName];
     const isStringPropriety = isString(propriety);
-
     if (isStringPropriety) {
       return accumulator + `${proprietyName}: "${propriety}", `;
     }
@@ -16,11 +13,11 @@ function stringifyStyle(style = {}) {
   }, String());
 }
 
-function stringifyAttributes(attributes = {}) {
-  const attributeNames = Object.keys(attributes);
+function stringifyAttributes(properties: any) {
+  const propertieNames = Object.keys(properties);
 
-  return attributeNames.reduce((accumulator, attributeName) => {
-    const attribute = attributes[attributeName];
+  return propertieNames.reduce((accumulator, attributeName) => {
+    const attribute = properties[attributeName];
     const isStyleAttribute = isPlainObject(attribute);
 
     if (isStyleAttribute) {
@@ -33,10 +30,7 @@ function stringifyAttributes(attributes = {}) {
   }, String());
 }
 
-function stringify(node) {
-  if (isString(node)) {
-    return node;
-  }
+export function stringify(node: any) {
   const properties = stringifyAttributes(node.properties);
   const buffer = `<${node.tagName} ${properties}>`;
 
@@ -44,7 +38,5 @@ function stringify(node) {
     return ac + stringify(childrenNode);
   }, buffer);
 
-  return childrensBuffer + `</${node.name}>`;
+  return childrensBuffer + `</${node.tagName}>`;
 }
-
-module.exports = stringify;
