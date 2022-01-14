@@ -1,13 +1,13 @@
-import { readFileSync, writeFileSync } from 'fs';
+import * as fs from 'fs';
 export function getSourceFromFile(path: string) {
   return getDataFromFile(path);
 }
 
 function getDataFromFile(path: string) {
-  return readFileSync(path).toString();
+  return fs.readFileSync(path).toString();
 }
 export function writeDataToFile(path: string, data: string) {
-  return writeFileSync(path, data);
+  return fs.writeFileSync(path, data);
 }
 export function isString(value: any) {
   const type = typeof value;
@@ -40,4 +40,11 @@ export function isPlainObject(value: any) {
     proto = Object.getPrototypeOf(proto);
   }
   return Object.getPrototypeOf(value) === proto;
+}
+
+export function addPropsToElement(element: string, type: 'class' | 'function') {
+  return element.replace(
+    /^<svg/,
+    type === 'function' ? `<svg {...props}` : `<svg {...this.props}`
+  );
 }

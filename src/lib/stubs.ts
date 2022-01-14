@@ -1,19 +1,30 @@
+import { addPropsToElement } from '../utils';
+
 const TEMPLATES: { [key: string]: (source: string) => string } = {
   typescript_function: (source: string) => `
+  import React from 'react';
 export function Icon(props: React.SVGProps<SVGSVGElement>) {
-  return (${source.replace(/^<svg/, `<svg {...props}`)});
+  return (${addPropsToElement(source, 'function')});
 }`,
   typescript_class: (source: string) => `
+  import React from 'react';
 function Icon(props: React.SVGProps<SVGSVGElement>) {
-  return (${source});
+  return (${addPropsToElement(source, 'class')});
+}
 	`,
   javascript_function: (source: string) => `
-function Icon(props: React.SVGProps<SVGSVGElement>) {
-  return (${source});
+  import React from 'react';
+export function Icon(props) {
+  return (${addPropsToElement(source, 'function')});
+}
 	`,
   javascript_class: (source: string) => `
-function Icon(props: React.SVGProps<SVGSVGElement>) {
-  return (${source});
+  import React from 'react'
+export class Icon extends React.Component{
+  render(){
+  return (${addPropsToElement(source, 'class')});
+  }
+}
 	`,
 };
 export const format = (

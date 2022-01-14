@@ -1,5 +1,6 @@
 import { Option } from 'commander';
 import { CommandCenter } from './Command';
+import { beautify } from './lib/beautify';
 import { optimizeSvg } from './lib/optimizer';
 import { parse } from './lib/parser';
 import { stringify } from './lib/stringfy';
@@ -29,26 +30,24 @@ command
   )
   .addOption(
     new Option('-t, --thread <number>', 'number of thread').default(1, 'one')
-  );
+  )
+  .addOption(new Option('-c --class', 'complie to class format'));
 
 command.action(async () => {
-  //   const parsed = parse(`
-  // 	<svg viewBox='0 0 100 100' asdzx>
-  //   <rect/>
-  // 	</svg>
-  // `);
+  const { file, output, extension, class: with_class } = command.opts() as any;
+  console.log(with_class);
 
-  const { file, output } = command.opts() as any;
   const data = getSourceFromFile(file);
-
   const optimizedSvg = await optimizeSvg(data);
   const parsedSvg = parse(optimizedSvg);
-
   const transformed = transform(parsedSvg.children[0]);
   const stringed = stringify(transformed);
-  const formated = format(stringed, 'function', 'tsx');
-  writeDataToFile(output, formated as string);
-
-  console.log(formated);
+  const formated = format(
+    stringed,
+    with_class ? 'class' : 'function',
+    extension
+  );
+  const beauty = beautify(formated || '');
+  writeDataToFile(output, beauty as string);
 });
 command.parse(); // controller.addCommand({})

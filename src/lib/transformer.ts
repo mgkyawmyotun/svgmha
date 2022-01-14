@@ -1,3 +1,4 @@
+
 interface parsedSvg {
   type: string;
   children: parsedSvg[];
