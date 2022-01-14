@@ -1,4 +1,5 @@
 import { Option } from 'commander';
+import { main } from './app';
 import { CommandCenter } from './Command';
 import { beautify } from './lib/beautify';
 import { optimizeSvg } from './lib/optimizer';
@@ -35,7 +36,10 @@ command
 
 command.action(async () => {
   const { file, output, extension, class: with_class } = command.opts() as any;
-  console.log(with_class);
+
+  const handler = main();
+  handler.handle(command.opts());
+  // commandHandler.setNext()
 
   const data = getSourceFromFile(file);
   const optimizedSvg = await optimizeSvg(data);

@@ -1,4 +1,3 @@
-
 interface parsedSvg {
   type: string;
   children: parsedSvg[];
@@ -24,7 +23,7 @@ function transformStyle(style: string) {
   return transformed;
 }
 function camelize(str: string) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
     if (+match === 0) return ''; // or if (/\s+/.test(match)) for white spaces
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
@@ -56,7 +55,7 @@ export function transform(parsedSvg: parsedSvg) {
       [camelize(propertieName)]: propertieValue,
     };
   }, {});
-  const children = parsedSvg.children.map(ch => transform(ch)) as any;
+  const children = parsedSvg.children.map((ch) => transform(ch)) as any;
   return {
     ...parsedSvg,
     children,
