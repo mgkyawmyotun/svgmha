@@ -1,3 +1,5 @@
+import { optimizeSvg } from '../lib/optimizer';
+import { ErrorHandler } from './ErrorHandler';
 import { BaseHandler } from './Handler';
 
 export class OptimizeHanlder extends BaseHandler {
@@ -5,7 +7,16 @@ export class OptimizeHanlder extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    console.log('optimize');
-    return super.handle(source);
+    const optimized = optimizeSvg(source);
+    if (optimized.error) {
+      this.setNext(new ErrorHandler());
+      (this.next as ErrorHandler).handle({
+        errorMessage: '(error at optimizing svg file)',
+        field: 'optimize ',
+        source: optimized,
+      });
+      return;
+    }
+    return super.handle((optimized as any).data);
   }
 }

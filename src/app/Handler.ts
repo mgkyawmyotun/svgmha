@@ -3,12 +3,11 @@ interface Handler {
   handle: (source: any) => void | null;
 }
 abstract class BaseHandler implements Handler {
-  constructor(private next: Handler | null) {}
+  constructor(public next: Handler | null) {}
   handle(source: any) {
     if (this.next) {
       return this.next.handle(source);
     }
-
     return null;
   }
 

@@ -1,3 +1,4 @@
+import { parse } from '../lib/parser';
 import { BaseHandler } from './Handler';
 
 export class ParseHanlder extends BaseHandler {
@@ -5,7 +6,10 @@ export class ParseHanlder extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    console.log('parser');
+    try {
+      const parsed = parse(source);
+      console.log(parsed);
+    } catch (error) {}
     return super.handle(source);
   }
 }

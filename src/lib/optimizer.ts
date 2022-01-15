@@ -1,6 +1,6 @@
 import * as Svgo from 'svgo';
 
-export async function optimizeSvg(svgString: string) {
+export function optimizeSvg(svgString: string) {
   const result = Svgo.optimize(svgString, {
     multipass: true,
     //     plugins: [...(PLUGINS as any)],
@@ -21,5 +21,6 @@ export async function optimizeSvg(svgString: string) {
       },
     ],
   });
-  return (result as any).data as string;
+
+  return result;
 }

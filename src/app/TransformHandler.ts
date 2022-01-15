@@ -5,7 +5,6 @@ export class TransformHanlder extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    console.log('transform');
     return super.handle(source);
   }
 }
