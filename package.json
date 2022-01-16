@@ -7,12 +7,14 @@
     "dist",
     "src"
   ],
+  "type": "module",
+
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "start": "tsdx watch --format esm",
+    "build": "tsdx build --format esm",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
@@ -34,8 +36,7 @@
   "name": "svgmha",
   "author": "kyawmyotun",
   "module": "dist/svgmha.esm.js",
-  "size-limit": [
-    {
+  "size-limit": [{
       "path": "dist/svgmha.cjs.production.min.js",
       "limit": "10 KB"
     },
@@ -58,6 +59,7 @@
     "chalk": "4.1.2",
     "commander": "^8.3.0",
     "css-to-object": "^1.1.0",
+    "ora": "^6.0.1",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "svgo": "^2.8.0"

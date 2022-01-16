@@ -1,3 +1,4 @@
+import { transform } from '../lib/transformer';
 import { BaseHandler } from './Handler';
 
 export class TransformHanlder extends BaseHandler {
@@ -5,6 +6,6 @@ export class TransformHanlder extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    return super.handle(source);
+    return super.handle(transform(source));
   }
 }

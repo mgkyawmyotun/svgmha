@@ -1,3 +1,4 @@
+import { stringify } from '../lib/stringfy';
 import { BaseHandler } from './Handler';
 
 export class StringfyHanlder extends BaseHandler {
@@ -5,7 +6,6 @@ export class StringfyHanlder extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    console.log('stringfy');
-    return super.handle(source);
+    return super.handle(stringify(source));
   }
 }

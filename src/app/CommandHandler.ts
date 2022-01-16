@@ -1,4 +1,5 @@
 import { existsSync } from 'fs';
+import ora from 'ora';
 import { getSourceFromFile } from '../utils';
 import { ErrorHandler } from './ErrorHandler';
 import { BaseHandler } from './Handler';
@@ -9,11 +10,21 @@ export class CommandHandler extends BaseHandler {
   }
 
   handle({ file }: OptionsType) {
+    const spinner = ora('Loading');
+    spinner.start();
     const errorHandler = new ErrorHandler();
     if (!isValidPath(file)) {
       this.setNext(errorHandler);
       (this.next as ErrorHandler).handle({
         errorMessage: '(not a valid file path / cannot find path)',
+        field: '-f ' + file,
+      });
+      return;
+    }
+    if (!file.endsWith('.svg')) {
+      this.setNext(errorHandler);
+      (this.next as ErrorHandler).handle({
+        errorMessage: 'file must be svg',
         field: '-f ' + file,
       });
       return;
@@ -27,6 +38,7 @@ export class CommandHandler extends BaseHandler {
     //   return;
     // }
     const fileContent = getSourceFromFile(file);
+    spinner.stop();
     return super.handle(fileContent);
   }
 }

@@ -1,3 +1,5 @@
+import { format } from '../lib/stubs';
+import { CommandManager } from './CommandManager';
 import { BaseHandler } from './Handler';
 
 export class FormatHandler extends BaseHandler {
@@ -5,7 +7,12 @@ export class FormatHandler extends BaseHandler {
     super(null);
   }
   handle(source: any) {
-    console.log('format');
-    return super.handle(source);
+    const { class: with_class, extension } = CommandManager.getOptions();
+    const formated = format(
+      source,
+      with_class ? 'class' : 'function',
+      extension
+    );
+    return super.handle(formated);
   }
 }

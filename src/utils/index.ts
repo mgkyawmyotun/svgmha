@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { dirname } from 'path';
 export function getSourceFromFile(path: string) {
   return getDataFromFile(path);
 }
@@ -47,4 +48,14 @@ export function addPropsToElement(element: string, type: 'class' | 'function') {
     /^<svg/,
     type === 'function' ? `<svg {...props}` : `<svg {...this.props}`
   );
+}
+
+export function getDir(path: string) {
+  // console.log()
+  return dirname(path);
+}
+export function createDirIfNotExist(dir: string) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 }
