@@ -7,14 +7,12 @@
     "dist",
     "src"
   ],
-  "type": "module",
-
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch --format esm",
-    "build": "tsdx build --format esm",
+    "start": "tsdx watch",
+    "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
@@ -59,7 +57,7 @@
     "chalk": "4.1.2",
     "commander": "^8.3.0",
     "css-to-object": "^1.1.0",
-    "ora": "^6.0.1",
+    "ora": "5.4.1",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "svgo": "^2.8.0"

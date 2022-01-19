@@ -10,8 +10,8 @@ export class CommandHandler extends BaseHandler {
   }
 
   handle({ file }: OptionsType) {
-    const spinner = ora('Loading');
-    spinner.start();
+    const spinner = ora();
+    spinner.start('Loading options');
     const errorHandler = new ErrorHandler();
     if (!isValidPath(file)) {
       this.setNext(errorHandler);
@@ -38,7 +38,10 @@ export class CommandHandler extends BaseHandler {
     //   return;
     // }
     const fileContent = getSourceFromFile(file);
-    spinner.stop();
+    setTimeout(() => {
+      spinner.succeed('Successfully checked options');
+    }, 5000);
+
     return super.handle(fileContent);
   }
 }
